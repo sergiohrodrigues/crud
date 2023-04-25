@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Lista } from './interface/Lista';
+import { MdDelete } from 'react-icons/md';
+import { FiEdit } from 'react-icons/fi';
 
 function App() {
+  const [item, setItem] = useState('');
+
+  const [lista, setLista] = useState<Lista[]>([]);
+
+  const enviarDados = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setLista([...lista, 
+      {
+        item: item
+      }
+    ]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <form action="" onSubmit={enviarDados}>
+        <input type="text" placeholder="nome do item" onChange={(event) => setItem(event.target.value)} />
+        <button>Adicionar</button>
+      </form>
+      {lista && lista.map((it, index) => (
+        <div key={index}>
+          <h2>{it.item}</h2>
+          <FiEdit />
+          <MdDelete />
+        </div>
+      )
+      )}
+    </>
   );
 }
 
