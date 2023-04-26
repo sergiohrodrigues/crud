@@ -1,7 +1,35 @@
 import { useState } from 'react';
 import { Lista } from './interface/Lista';
-import { MdDelete } from 'react-icons/md';
-import { FiEdit } from 'react-icons/fi';
+import styled from 'styled-components';
+import TableItem from './components/TableItem';
+
+const Container = styled.section`
+  width: 50%;
+  margin: 5rem auto 0 auto;
+  text-align: center;
+  border: 1px solid gray;
+  border-radius: 2rem;
+  padding: 4rem 0;
+  min-height: 50vh;
+  h2{
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+  button:hover{
+    cursor: pointer;
+  }
+`;
+
+const Form = styled.form`
+  text-align: center;
+  input{
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: 1px solid gray;
+    outline: none;
+  }
+`;
 
 function App() {
   const [item, setItem] = useState('');
@@ -10,28 +38,22 @@ function App() {
 
   const enviarDados = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    setLista([...lista, 
-      {
-        item: item
-      }
+    
+    setLista([...lista, {
+      item: item
+    }
     ]);
   };
 
   return (
     <>
-      <form action="" onSubmit={enviarDados}>
-        <input type="text" placeholder="nome do item" onChange={(event) => setItem(event.target.value)} />
-        <button>Adicionar</button>
-      </form>
-      {lista && lista.map((it, index) => (
-        <div key={index}>
-          <h2>{it.item}</h2>
-          <FiEdit />
-          <MdDelete />
-        </div>
-      )
-      )}
+      <Container>
+        <Form action="" onSubmit={enviarDados}>
+          <input type="text" placeholder="nome do item" onChange={(event) => setItem(event.target.value)} />
+          <button>Adicionar</button>
+        </Form>
+        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} />}
+      </Container >
     </>
   );
 }
