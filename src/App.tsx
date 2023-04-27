@@ -40,26 +40,35 @@ function App() {
   const enviarDados = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    for (let i = 0; i <= lista.length; i++) {
-      setLista([...lista, {
-        id: i,
-        item: nomeDoItem
+    const nomeRepetido = lista.some(nomeLista => nomeLista.item.toLocaleLowerCase() === nomeDoItem.toLocaleLowerCase());
+
+    if (nomeRepetido) {
+      alert('item já adicionado');
+    } else {
+      if(nomeDoItem !== ''){
+        for (let i = 0; i <= lista.length; i++) {
+          setLista([...lista, {
+            id: i,
+            item: nomeDoItem
+          }
+          ]);
+        }
+      } else {
+        alert('por favor digite o nome do item');
       }
-      ]);
     }
 
+    setNomeDoItem('');
   };
-  // console.log(lista);
-
 
   return (
     <>
       <Container>
         <Form action="" onSubmit={enviarDados}>
-          <input type="text" id='input' placeholder="nome do item" onChange={(event) => setNomeDoItem(event.target.value)} />
+          <input type="text" id='input' placeholder="nome do item" value={nomeDoItem} onChange={(event) => setNomeDoItem(event.target.value)} />
           <button>Adicionar</button>
         </Form>
-        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} setLista={setLista} setNomeDoItem={setNomeDoItem}/>}
+        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} setLista={setLista} setNomeDoItem={setNomeDoItem} />}
       </Container >
     </>
   );
