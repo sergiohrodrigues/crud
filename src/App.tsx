@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import TableItem from './components/TableItem';
 
 const Container = styled.section`
-  width: 50%;
+  width: 90%;
   margin: 5rem auto 0 auto;
   text-align: center;
   border: 1px solid gray;
   border-radius: 2rem;
   padding: 4rem 0;
   min-height: 50vh;
+  min-width: 276px;
   h2{
     font-size: 2rem;
     margin-top: 3rem;
@@ -32,27 +33,33 @@ const Form = styled.form`
 `;
 
 function App() {
-  const [item, setItem] = useState('');
+  const [nomeDoItem, setNomeDoItem] = useState('');
 
   const [lista, setLista] = useState<Lista[]>([]);
 
   const enviarDados = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    setLista([...lista, {
-      item: item
+
+    for (let i = 0; i <= lista.length; i++) {
+      setLista([...lista, {
+        id: i,
+        item: nomeDoItem
+      }
+      ]);
     }
-    ]);
+
   };
+  // console.log(lista);
+
 
   return (
     <>
       <Container>
         <Form action="" onSubmit={enviarDados}>
-          <input type="text" placeholder="nome do item" onChange={(event) => setItem(event.target.value)} />
+          <input type="text" id='input' placeholder="nome do item" onChange={(event) => setNomeDoItem(event.target.value)} />
           <button>Adicionar</button>
         </Form>
-        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} />}
+        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} setLista={setLista} setNomeDoItem={setNomeDoItem}/>}
       </Container >
     </>
   );
