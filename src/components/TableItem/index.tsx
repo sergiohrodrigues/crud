@@ -1,6 +1,7 @@
 import { TableContainer, Table, Paper, TableRow, TableCell, TableBody } from '@mui/material';
 import { Lista } from '../../interface/Lista';
-import { MdDelete, MdOutlineVerifiedUser } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
+// MdOutlineVerifiedUser
 import { FiEdit } from 'react-icons/fi';
 import styled from 'styled-components';
 import { useState } from 'react';
@@ -20,28 +21,26 @@ const Form = styled.section`
 
 interface Props {
   lista: Lista[],
-  setLista: React.Dispatch<React.SetStateAction<Lista[]>>,
-  setNomeDoItem: React.Dispatch<React.SetStateAction<string>>
+  setLista: React.Dispatch<React.SetStateAction<Lista[]>>
 }
 
-export default function TableItem({ lista, setLista, setNomeDoItem }: Props) {
+export default function TableItem({ lista, setLista }: Props) {
 
   const [edit, setEdit] = useState(false);
+  const [nomeAtualizado, setNomeAtualizado] = useState<string>('');
+
+  const todosItens = document.querySelectorAll('input[data-value]');
 
   const functionEdit = (itemAEditar: Lista) => {
-    // const todosItems = document.querySelectorAll('input[data-value]');
-
-    // if (edit) {
-    //   setEdit(!edit);
-    //   const inputSelecionado = document.querySelector(`data-value[${itemAEditar.id}]`);
-    //   inputSelecionado?.setAttribute('disabled', 'disabled');
-    //   console.log('isso');
-    // } else {
-    //   const inputSelecionado = document.querySelector(`data-value[${itemAEditar.id}]`);
-    //   inputSelecionado?.removeAttribute('disabled');
-    //   setEdit(!edit);
-    //   console.log('aquilo');
-    // }
+    if (edit) {
+      console.log(todosItens[itemAEditar.id]);
+      todosItens[itemAEditar.id].setAttribute('disabled', 'disabled');
+      setEdit(!edit);
+    } else {
+      todosItens[itemAEditar.id]?.removeAttribute('disabled');
+      // const valueAtual = todosItens[itemAEditar.id].getAttribute('value');
+      setEdit(!edit);
+    }
   };
 
   const functionDelete = (item: Lista) => {
@@ -59,8 +58,8 @@ export default function TableItem({ lista, setLista, setNomeDoItem }: Props) {
             lista.map((itemLista, index) => (
               <TableBody key={index}>
                 <TableRow sx={{ width: '100%' }}>
-                  <TableCell sx={{ padding: '0.5rem' }}><input type='text' value={itemLista.item} disabled /></TableCell>
-                  <TableCell sx={{ padding: '0.5rem' }}>{edit ? <MdOutlineVerifiedUser size={15} onClick={() => functionEdit(itemLista)} /> : <FiEdit className='edit' size={15} onClick={() => functionEdit(itemLista)} />}</TableCell>
+                  <TableCell sx={{ padding: '0.5rem' }}><input type='text' value={edit ? nomeAtualizado : itemLista.item} disabled data-value={`${itemLista.id}`} onChange={(event) => setNomeAtualizado(event.target.value)} /></TableCell>
+                  <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={15} onClick={() => functionEdit(itemLista)} /></TableCell>
                   <TableCell sx={{ padding: '0.5rem' }}><MdDelete className='delete' size={15} onClick={() => functionDelete(itemLista)} /></TableCell>
                 </TableRow>
               </TableBody>

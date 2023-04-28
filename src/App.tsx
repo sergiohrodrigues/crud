@@ -37,6 +37,21 @@ function App() {
 
   const [lista, setLista] = useState<Lista[]>([]);
 
+  // const listaRecuperada = localStorage.getItem('lista');
+
+  // function adicionarItemNoLocalStorage() {
+  //   const listaParaLocalStorage = localStorage.setItem('lista', JSON.stringify(lista));
+  // }
+
+  // useEffect(() => {
+  //   if (listaRecuperada) {
+  //     const listaDeItens = JSON.parse(listaRecuperada);
+  //     setLista(listaDeItens);
+  //   } else {
+  //     setLista([]);
+  //   }
+  // }, [listaRecuperada]);
+
   const enviarDados = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -45,7 +60,7 @@ function App() {
     if (nomeRepetido) {
       alert('item já adicionado');
     } else {
-      if(nomeDoItem !== ''){
+      if (nomeDoItem !== '') {
         for (let i = 0; i <= lista.length; i++) {
           setLista([...lista, {
             id: i,
@@ -68,7 +83,7 @@ function App() {
           <input type="text" id='input' placeholder="nome do item" value={nomeDoItem} onChange={(event) => setNomeDoItem(event.target.value)} />
           <button>Adicionar</button>
         </Form>
-        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} setLista={setLista} setNomeDoItem={setNomeDoItem} />}
+        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} setLista={setLista} />}
       </Container >
     </>
   );
