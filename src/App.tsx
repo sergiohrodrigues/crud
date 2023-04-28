@@ -4,22 +4,21 @@ import styled from 'styled-components';
 import TableItem from './components/TableItem';
 
 const Container = styled.section`
-  width: 90%;
-  margin: 5rem auto 0 auto;
+  min-width: 276px;
   text-align: center;
   border: 1px solid gray;
   border-radius: 2rem;
-  padding: 4rem 0;
+  padding: 3rem 1rem;
   min-height: 50vh;
-  min-width: 276px;
   h2{
     font-size: 2rem;
     margin-top: 3rem;
   }
-  button:hover{
-    cursor: pointer;
+  
+  @media screen and (min-width: 768px){
+    min-height: 40vh;
   }
-`;
+  `;
 
 const Form = styled.form`
   text-align: center;
@@ -29,6 +28,26 @@ const Form = styled.form`
     border-radius: 1rem;
     border: 1px solid gray;
     outline: none;
+  }
+
+  @media screen and (min-width: 768px){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    input{
+      padding: 1rem;
+    }
+    button{
+      border: none;
+      border: 1px solid #000;
+      padding: 0.5rem;
+      border-radius: 1rem;
+    }
+    button:hover{
+      cursor: pointer;
+      border: 1px solid gray;
+      background-color: #fff;
+    }
   }
 `;
 
