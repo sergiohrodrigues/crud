@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Lista } from './interface/Lista';
 import styled from 'styled-components';
 import TableItem from './components/TableItem';
+import gerarId from './utilidades/gerarId';
 
 const Container = styled.section`
   min-width: 276px;
@@ -82,7 +83,7 @@ function App() {
       if (nomeDoItem !== '') {
         for (let i = 0; i <= lista.length; i++) {
           setLista([...lista, {
-            id: i,
+            id: gerarId(),
             item: nomeDoItem
           }
           ]);

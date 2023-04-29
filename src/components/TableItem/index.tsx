@@ -32,15 +32,20 @@ export default function TableItem({ lista, setLista }: Props) {
   const todosItens = document.querySelectorAll('input[data-value]');
 
   const functionEdit = (itemAEditar: Lista) => {
+
     if (edit) {
-      console.log(todosItens[itemAEditar.id]);
-      todosItens[itemAEditar.id].setAttribute('disabled', 'disabled');
       setEdit(!edit);
+      itemAEditar.item = nomeAtualizado;
+      todosItens[itemAEditar.id].setAttribute('disabled', 'disabled');
+      setNomeAtualizado('');
+      alert('Nome do item alterado com sucesso!');
     } else {
       todosItens[itemAEditar.id]?.removeAttribute('disabled');
-      // const valueAtual = todosItens[itemAEditar.id].getAttribute('value');
+      todosItens[itemAEditar.id].setAttribute('value', nomeAtualizado);
+
       setEdit(!edit);
     }
+    console.log(lista);
   };
 
   const functionDelete = (item: Lista) => {
@@ -50,6 +55,8 @@ export default function TableItem({ lista, setLista }: Props) {
     setLista(listaAtualizada);
   };
 
+  console.log(lista);
+
   return (
     <Form>
       <TableContainer component={Paper} sx={{ marginTop: '2rem' }}>
@@ -58,7 +65,7 @@ export default function TableItem({ lista, setLista }: Props) {
             lista.map((itemLista, index) => (
               <TableBody key={index}>
                 <TableRow sx={{ width: '100%' }}>
-                  <TableCell sx={{ padding: '0.5rem' }}><input type='text' value={edit ? nomeAtualizado : itemLista.item} disabled data-value={`${itemLista.id}`} onChange={(event) => setNomeAtualizado(event.target.value)} /></TableCell>
+                  <TableCell sx={{ padding: '0.5rem' }}><input type='text' placeholder={itemLista.item} disabled data-value={`${itemLista.id}`} onChange={(event) => setNomeAtualizado(event.target.value)} /></TableCell>
                   <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={15} onClick={() => functionEdit(itemLista)} /></TableCell>
                   <TableCell sx={{ padding: '0.5rem' }}><MdDelete className='delete' size={15} onClick={() => functionDelete(itemLista)} /></TableCell>
                 </TableRow>
