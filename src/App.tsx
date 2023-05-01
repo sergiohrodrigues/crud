@@ -5,14 +5,15 @@ import TableItem from './components/TableItem';
 import gerarId from './utilidades/gerarId';
 
 const Container = styled.section`
+  background-color: #094074;
   min-width: 276px;
   text-align: center;
-  border: 1px solid gray;
+  border: 3px solid;
   border-radius: 2rem;
   padding: 3rem 1rem;
   min-height: 50vh;
   h2{
-    font-size: 2rem;
+    font-size: 4rem;
     margin-top: 3rem;
   }
   
@@ -100,10 +101,10 @@ function App() {
     <>
       <Container>
         <Form action="" onSubmit={enviarDados}>
-          <input type="text" id='input' placeholder="nome do item" value={nomeDoItem} onChange={(event) => setNomeDoItem(event.target.value)} />
+          <input type="text" id='input' placeholder="Digite o nome do item" value={nomeDoItem} onChange={(event) => setNomeDoItem(event.target.value)} />
           <button>Adicionar</button>
         </Form>
-        {lista.length === 0 ? <h2>Sem itens</h2> : <TableItem lista={lista} setLista={setLista} />}
+        {lista.length === 0 ? <h2>Sem <br/> item</h2> : <TableItem lista={lista} setLista={setLista} />}
       </Container >
     </>
   );
