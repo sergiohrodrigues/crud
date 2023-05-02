@@ -5,6 +5,7 @@ import { MdDelete } from 'react-icons/md';
 import { FiEdit } from 'react-icons/fi';
 import styled from 'styled-components';
 import { useState } from 'react';
+import Modal from '../Modal';
 // import Modal from '../Modal';
 
 const Form = styled.section`
@@ -65,12 +66,12 @@ export default function TableItem({ lista, setLista }: Props) {
               lista.map((itemLista, index) => (
                 <TableBody key={index}>
                   <TableRow sx={{ width: '100%' }}>
-                    <TableCell sx={{ padding: '0.5rem' }}><input type='text' placeholder={itemLista.item} disabled data-value={`${itemLista.id}`} onChange={(event) => setNomeAtualizado(event.target.value)} /></TableCell>
-                    {/* // <TableCell sx={{ padding: '0.5rem' }}><span>{itemLista.item}</span></TableCell> */}
+                    {/* <TableCell sx={{ padding: '0.5rem' }}><input type='text' placeholder={itemLista.item} disabled data-value={`${itemLista.id}`} onChange={(event) => setNomeAtualizado(event.target.value)} /></TableCell> */}
+                    <TableCell sx={{ padding: '0.5rem' }}><span>{itemLista.item}</span></TableCell>
                     {/* <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={15} onClick={() => functionEdit(itemLista)} /></TableCell> */}
-                    <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={15} /></TableCell>
+                    <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={15} onClick={() => setEdit(!edit)}/></TableCell>
                     <TableCell sx={{ padding: '0.5rem' }}><MdDelete className='delete' size={15} onClick={() => functionDelete(itemLista)} /></TableCell>
-                    {/* // <Modal edit={edit} itemDaLista={itemLista}/> */}
+                    <Modal edit={edit} setEdit={setEdit} itemDaLista={itemLista} />
                   </TableRow>
                 </TableBody>
               ))}
