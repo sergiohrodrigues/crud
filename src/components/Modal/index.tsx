@@ -30,27 +30,29 @@ const ModalItem = styled.div`
 `;
 
 interface Props {
-  itemDaLista: Lista,
+  itemLista: string,
   edit: boolean,
   setEdit: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Modal({ itemDaLista, edit, setEdit }: Props) {
-  const [novoNome, setNovoNome] = useState(itemDaLista.item);
+export default function Modal({ itemLista, edit, setEdit }: Props) {
+  const [novoNome, setNovoNome] = useState(itemLista);
 
   const salvarItem = () => {
-    itemDaLista.item = novoNome;
+    itemLista = novoNome;
     alert('Nome salvo com sucesso!');
     setEdit(false);
-    console.log(itemDaLista);
+    console.log(itemLista);
   };
+
+  console.log(itemLista);
 
   if(edit){
     return (
       <ModalContainer>
         <ModalItem>
           <span onClick={() => setEdit(false)}>X</span><br/>
-          <input placeholder="Digite o nome" value={novoNome} onChange={(event) => setNovoNome(event.target.value)}/> <br />
+          <input placeholder={itemLista} onChange={(event) => setNovoNome(event.target.value)}/> <br />
           <button style={{ marginTop: '1rem' }} onClick={salvarItem}>Salvar</button>
         </ModalItem>
       </ModalContainer>

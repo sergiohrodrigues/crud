@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Lista } from './interface/Lista';
 import styled from 'styled-components';
 import TableItem from './components/TableItem';
@@ -57,21 +57,27 @@ function App() {
   const [nomeDoItem, setNomeDoItem] = useState('');
 
   const [lista, setLista] = useState<Lista[]>([]);
+  const [atualiza, setAtualiza] = useState(false);
 
-  // const listaRecuperada = localStorage.getItem('lista');
+  useEffect(() => {
+    const url = 'http://localhost:8080/item';
 
-  // function adicionarItemNoLocalStorage() {
-  //   const listaParaLocalStorage = localStorage.setItem('lista', JSON.stringify(lista));
-  // }
+    const listaDeItens = () => {
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(json => setLista(json))
+        .catch(error => console.log('Authorization failed : ' + error.message));
+        
+    };
 
-  // useEffect(() => {
-  //   if (listaRecuperada) {
-  //     const listaDeItens = JSON.parse(listaRecuperada);
-  //     setLista(listaDeItens);
-  //   } else {
-  //     setLista([]);
-  //   }
-  // }, [listaRecuperada]);
+    setAtualiza(false);
+    return listaDeItens;
+  }, [atualiza]);
 
   const enviarDados = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -82,20 +88,25 @@ function App() {
       alert('item já adicionado');
     } else {
       if (nomeDoItem !== '') {
-        for (let i = 0; i <= lista.length; i++) {
-          setLista([...lista, {
-            id: gerarId(),
+        fetch('http://localhost:8080/item', {
+          method: 'POST',
+          body: JSON.stringify({
             item: nomeDoItem
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8'
           }
-          ]);
-        }
+        });
       } else {
         alert('por favor digite o nome do item');
       }
     }
 
     setNomeDoItem('');
+
+    setAtualiza(true);
   };
+
 
   return (
     <>
