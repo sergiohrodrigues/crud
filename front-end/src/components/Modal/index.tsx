@@ -53,7 +53,7 @@ export default function Modal({ itemLista, edit, setEdit }: Props) {
         <ModalItem>
           <span onClick={() => setEdit(false)}>X</span><br/>
           <input placeholder={itemLista} onChange={(event) => setNovoNome(event.target.value)}/> <br />
-          <button style={{ marginTop: '1rem' }} onClick={salvarItem}>Salvar</button>
+          <button style={{ marginTop: '1rem' }} onClick={salvarItem}>Salvarr</button>
         </ModalItem>
       </ModalContainer>
     );
