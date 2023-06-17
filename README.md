@@ -1,5 +1,5 @@
-Para rodar esse projeto faça um git clone dos arquivos
-git clone https://github.com/sergiohrodrigues/crud
+Para rodar esse projeto faça um git clone dos arquivos <br/>
+git clone "https://github.com/sergiohrodrigues/crud.git"
 
 primeiramente execute o backend.. <br/>
 entre na pasta do backend com cd backend, e emseguida instale as dependencias com "npm install" ou "npm i"<br/>
