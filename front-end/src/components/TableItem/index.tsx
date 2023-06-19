@@ -1,12 +1,10 @@
 import { TableContainer, Table, Paper, TableRow, TableCell, TableBody } from '@mui/material';
 import { Lista } from '../../interface/Lista';
 import { MdDelete } from 'react-icons/md';
-// MdOutlineVerifiedUser
 import { FiEdit } from 'react-icons/fi';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import Modal from '../Modal';
-// import Modal from '../Modal';
 
 const Form = styled.section`
     tr{
@@ -67,18 +65,13 @@ export default function TableItem({lista, setLista} : Props) {
 
   }, [atualiza]);
 
-  interface PropsItem {
-    event: React.MouseEvent<SVGElement, MouseEvent>,
-    itemLista: Lista
-  }
+  const [itemAEditar, setItemAEditar] = useState('');
+  const [idAEditar, setIdAEditar] = useState(0);
 
-  function editarItem({event, itemLista}: PropsItem){
-    console.log(itemLista);
-    // document.querySelector(`#id${itemLista.id}`)?.innerHTML = '';
-    // itemClicado = '<input placeholder="oi"/>';
-    // console.log(itemClicado);
-    // itemClicado?.textContent = '<input placeholder="clique-me"/>';
-    // console.log(document.querySelector(`#id${itemLista.id}`)?.textContent = '<input>');
+  function passarItem (itemLista: Lista){
+    setEdit(true);
+    setItemAEditar(itemLista.item);
+    setIdAEditar(itemLista.id);
   }
 
   return (
@@ -92,10 +85,10 @@ export default function TableItem({lista, setLista} : Props) {
                   <TableRow sx={{ width: '100%' }}>
                     <TableCell sx={{ padding: '0.5rem' }}><span id={`id${itemLista.id}`}>{itemLista.item}</span></TableCell>
                     <tr>
-                      <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={20} onClick={() => setEdit(true)}/></TableCell>
+                      <TableCell sx={{ padding: '0.5rem' }}><FiEdit className='edit' size={20} onClick={() => passarItem(itemLista)}/></TableCell>
                       <TableCell sx={{ padding: '0.5rem' }}><MdDelete className='delete' size={20} onClick={() => functionDelete(itemLista)} /></TableCell>
                     </tr>
-                    <Modal edit={edit} setEdit={setEdit} itemLista={itemLista.item} />
+                    <Modal edit={edit} setEdit={setEdit} itemAEditar={itemAEditar} idItem={idAEditar} setAtualiza={setAtualiza}/>
                   </TableRow>
                 </TableBody>
               ))}
