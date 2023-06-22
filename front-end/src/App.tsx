@@ -113,7 +113,7 @@ function App() {
       <Container>
         <Form action="" onSubmit={enviarDados}>
           <input type="text" id='input' placeholder="Digite o nome do item" value={nomeDoItem} onChange={(event) => setNomeDoItem(event.target.value)} />
-          <button>Adicionar</button>
+          <button>Adicionarr</button>
         </Form>
         {lista.length === 0 ? <h2>Sem <br/> item</h2> : <TableItem lista={lista} setLista={setLista} />}
       </Container >
